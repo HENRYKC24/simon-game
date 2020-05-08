@@ -8,12 +8,18 @@ var firstKeypress = true;
 var level = 0;
 
 function gameOver() {
+  // $('#top').trigger("click");
   gamePattern = [];
   userClickedPattern = [];
   $('#level-title').text('Gave Over, Press Any Key to Restart!');
   playErrorSound();
   firstKeypress = true;
   level = 0;
+  // $('[type="button"').unbind();
+  $('body').addClass('red');
+  setTimeout(function() {
+    $('body').removeClass('red');
+  },200);
 }
 
 var clickFunction = function() {
@@ -21,6 +27,9 @@ var clickFunction = function() {
   userClickedPattern.push(userChosenColour);
   playSound(userChosenColour);
   animatePress(userChosenColour);
+  if ( !level ) {
+    return gameOver();
+  }
   var gamePatternNumber = gamePattern.length;
   var clickPatternNumber = userClickedPattern.length;
   console.log(gamePattern, userClickedPattern);
@@ -78,6 +87,7 @@ function animatePress( currentColour ) {
 
 $('body').keypress(function() {
   if ( firstKeypress ) {
+    // $('[type="button"').click(clickFunction);
     firstKeypress = false;
     $('#level-title').text('Level 0');
     nextSequence();
