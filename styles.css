@@ -20,8 +20,8 @@ body {
 .btn {
   margin: 1vw;
   display: inline-block;
-  height: 30vw;
-  width: 30vw;
+  height: 40vw;
+  width: 40vw;
   border: 10px solid black;
   border-radius: 20%;
 }
@@ -61,8 +61,8 @@ body {
   top: 50%;
   left: 0;
   /* width: 100px; */
-  height: 40px;
-  font-size: 1rem;
+  height: 50px;
+  font-size: 1.5rem;
   background-color: #46091b;
   color: #fff;
   font-weight: 1000;
@@ -111,6 +111,7 @@ body {
   color: white;
   text-align: left;
   padding: 10px 20px 50px;
+  font-size: 1.5rem;
 }
 
 @media only screen and (min-width: 711px) {
