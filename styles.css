@@ -12,7 +12,7 @@ body {
 
 .container {
   display: block;
-  width: 80%;
+  width: 100%;
   margin: auto;
 
 }
@@ -58,7 +58,7 @@ body {
 
 #how-to {
   position: fixed;
-  top: 10%;
+  top: 20%;
   left: 0;
   /* width: 100px; */
   height: 50px;
@@ -114,16 +114,27 @@ body {
   font-size: 1.5rem;
 }
 
-@media only screen and (min-width: 711px) {
+@media only screen and (max-width: 550px) {
   .btn {
-    height: 18vw;
-    width: 18vw;
+    height: 170px;
+    width: 170px;
   }
 
   #level-title {
     font-size: 3rem;
   }
 }
+/*
+@media only screen and (min-width: 711px) {
+  .btn {
+    height: 18px;
+    width: 18px;
+  }
+
+  #level-title {
+    font-size: 3rem;
+  }
+} */
 
 footer {
   color: white;
