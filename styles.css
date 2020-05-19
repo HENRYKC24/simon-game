@@ -1,27 +1,27 @@
 body {
   text-align: center;
-  background-color: #011F3F;
+  background-color: #011f3f;
 }
 
 #level-title {
   font-family: 'Press Start 2P', cursive;
-  font-size: 3rem;
-  margin:  5%;
+  font-size: 1.5rem;
+  margin:  2%;
   color: #FEF2BF;
 }
 
 .container {
   display: block;
-  width: 50%;
+  width: 80%;
   margin: auto;
 
 }
 
 .btn {
-  margin: 25px;
+  margin: 1vw;
   display: inline-block;
-  height: 200px;
-  width: 200px;
+  height: 28vw;
+  width: 28vw;
   border: 10px solid black;
   border-radius: 20%;
 }
@@ -54,4 +54,77 @@ body {
 
 #top {
   display: none;
+}
+
+#how-to {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background-color: #46091b;
+  color: #fff;
+  font-weight: 1000;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+.purple {
+  background-color: #46091b;
+}
+
+.tips-btn {
+  width: 20%;
+  margin: auto;
+  text-align: center;
+  background-color: #fff;
+  color: black;
+  padding: 5px 0;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 150%;
+}
+
+.tips-btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.tips-btn:active {
+  background-color: #fff;
+  color: #000;
+}
+
+.how-to-play {
+  color: white;
+  text-align: left;
+}
+
+@media only screen and (min-width: 711px) {
+  .btn {
+    height: 18vw;
+    width: 18vw;
+  }
+
+  #level-title {
+    font-size: 3rem;
+  }
+}
+
+footer {
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
 }

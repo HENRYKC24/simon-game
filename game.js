@@ -5,24 +5,31 @@ var userClickedPattern = [];
 
 var firstKeypress = true;
 
-var level = 0;
+var level = 1;
+
 
 function gameOver() {
   // $('#top').trigger("click");
+  $('[type="button"').unbind();
+  $('[type="button"').click(function(event) {
+    event.stopPropagation();
+  });
   gamePattern = [];
   userClickedPattern = [];
   $('#level-title').text('Gave Over, Press Any Key to Restart!');
   playErrorSound();
   firstKeypress = true;
-  level = 0;
+  level = 1;
   // $('[type="button"').unbind();
   $('body').addClass('red');
   setTimeout(function() {
     $('body').removeClass('red');
   },200);
+  $('#how-to').removeClass('hide');
 }
 
-var clickFunction = function() {
+var clickFunction = function(event) {
+  event.stopPropagation();
   var userChosenColour = this.id;
   userClickedPattern.push(userChosenColour);
   playSound(userChosenColour);
@@ -32,9 +39,11 @@ var clickFunction = function() {
   }
   var gamePatternNumber = gamePattern.length;
   var clickPatternNumber = userClickedPattern.length;
-  console.log(gamePattern, userClickedPattern);
   if ( gamePatternNumber === clickPatternNumber && gamePattern.join('') === userClickedPattern.join('') ) {
     $('[type="button"').unbind();
+    $('[type="button"').click(function(event){
+      event.stopPropagation();
+    });
     setTimeout(function() {
       $('[type="button"').click(clickFunction);
       nextSequence();
@@ -42,29 +51,48 @@ var clickFunction = function() {
     }, 1000);
   }
   else if ( gamePatternNumber === clickPatternNumber && gamePattern.join('') !== userClickedPattern.join('') ) {
-    console.log(1);
     gameOver();
   }
   else if ( gamePatternNumber > clickPatternNumber ) {
     var currentClickPattern = gamePattern.slice(0, clickPatternNumber);
-    console.log(currentClickPattern, gamePattern, userClickedPattern);
     if ( currentClickPattern.join('') !== userClickedPattern.join('') ) {
-      console.log(2);
       gameOver();
     }
   }
 };
 
-$('[type="button"').click(clickFunction);
+// $('[type="button"').click(clickFunction);
+$('[type="button"').unbind();
+$('.how-to-play').addClass('hide');
+
+$('#how-to').click((event) => {
+  event.stopPropagation();
+  $('.how-to-play').click((event) => {
+    event.stopPropagation();
+  });
+  $('.app').addClass('hide');
+  $('.how-to-play').removeClass('hide').addClass('purple');
+  $('body').addClass('purple');
+  $('#how-to').addClass('hide');
+});
+
+$('.tips-btn').click(() => {
+  $('.how-to-play').addClass('hide');
+  $('body').removeClass('purple');
+  $('.app').removeClass('hide');
+  $('#how-to').removeClass('hide');
+});
 
 function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
-  gamePattern.push(randomChosenColour);
-  $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-  level++;
   $('#level-title').text('Level ' + level);
-  playSound(randomChosenColour);
+  gamePattern.push(randomChosenColour);
+  setTimeout(() => {
+    $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+    level++;
+    playSound(randomChosenColour);
+  }, 300);
 
 }
 
@@ -84,12 +112,27 @@ function animatePress( currentColour ) {
     $( '.' + currentColour ).removeClass('pressed');
   }, 100);
 }
-
+$('[type="button"').click(function(event){
+  event.stopPropagation();
+});
 $('body').keypress(function() {
+  $('[type="button"').click(clickFunction);
   if ( firstKeypress ) {
     // $('[type="button"').click(clickFunction);
     firstKeypress = false;
     $('#level-title').text('Level 0');
     nextSequence();
+    $('#how-to').addClass('hide');
+  }
+});
+
+$('body').click(function() {
+  $('[type="button"').click(clickFunction);
+  if ( firstKeypress ) {
+    // $('[type="button"').click(clickFunction);
+    firstKeypress = false;
+    $('#level-title').text('Level 0');
+    nextSequence();
+    $('#how-to').addClass('hide');
   }
 });

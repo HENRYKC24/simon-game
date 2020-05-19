@@ -3,39 +3,72 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Simon</title>
+  <title>KC Apps</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link rel="icon" href="#">
 </head>
 
 <body>
-  <h1 id="level-title">Press A Key to Start</h1>
-  <div class="container">
-    <div lass="row">
-
-      <div type="button" id="green" class="btn green">
-
+  <div class="app">
+    <h1 id="level-title">Press A Key to Start</h1>
+    <div class="container">
+      <div class="row">
+  
+        <div type="button" id="green" class="btn green">
+  
+        </div>
+  
+        <div type="button" id="red" class="btn red">
+  
+        </div>
       </div>
-
-      <div type="button" id="red" class="btn red">
-
+  
+      <div class="row">
+  
+        <div type="button" id="yellow" class="btn yellow">
+  
+        </div>
+        <div type="button" id="blue" class="btn blue">
+  
+        </div>
+  
       </div>
+  
     </div>
-
-    <div class="row">
-
-      <div type="button" id="yellow" class="btn yellow">
-
-      </div>
-      <div type="button" id="blue" class="btn blue">
-
-      </div>
-
-    </div>
-
+    <button id="how-to">How To Play</button>
   </div>
-  <a id="top" href="#">Go to top</a>
 
+  <div class="how-to-play">
+    <p>This game checks if you can remeber the clicking pattern you followed 
+      previously.
+    </p>
+    <p>When the game opens, you start the game by pressing a key on the keyboard 
+      if you are using a computer or touching the blue background
+       if you are using a phone or tablet.
+    </p>
+    <p>When the game starts, any one of the four boxes (green, red, yellow 
+      or blue) will blink. This gives you the particular box you are 
+      to click to progress to level 2.
+    </p>
+    <p>When you rightly clicked this box that blinked, you will see level 2 on top 
+      and yet another box will randomly blink.
+    </p>
+    <p>The level you are tells you how many boxes you are to click. In leve 2, 
+      you are expected to click the first box that blinked followed by 
+      the new one that just blinked. If you get this correctly you will progress 
+      to level 3.
+    </p>
+    <p>In level 3, a new box randomly blinks. Then you click the first box 
+      that blinked, followed by the second and the third in that sequence.
+    </p>
+    <p>Whenever you click or touch any box, the box will flash a white light. 
+      This differenciates it from the blinking of one box at the start of every level.
+    </p>
+    <p>That is basically what you do in the game. The sounds will also guide you.</p>
+    <div class="tips-btn">Close</div>
+  </div>
+  <footer>&copy; 2020 KC Soft Solutions</footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="game.js"></script>
 </body>
