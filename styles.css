@@ -3,9 +3,14 @@ body {
   background-color: #011f3f;
 }
 
+.app {
+  margin: 0;
+  padding: 0;
+}
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin:  2%;
   color: #FEF2BF;
 }
@@ -119,22 +124,14 @@ body {
     height: 170px;
     width: 170px;
   }
+}
 
-  #level-title {
-    font-size: 3rem;
+@media only screen and (max-width: 400px) {
+  .btn {
+    height: 200px;
+    width: 200px;
   }
 }
-/*
-@media only screen and (min-width: 711px) {
-  .btn {
-    height: 18px;
-    width: 18px;
-  }
-
-  #level-title {
-    font-size: 3rem;
-  }
-} */
 
 footer {
   color: white;

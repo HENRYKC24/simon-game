@@ -16,7 +16,7 @@ function gameOver() {
   });
   gamePattern = [];
   userClickedPattern = [];
-  $('#level-title').text('Gave Over, Press Any Key or Click Background to Restart!');
+  $('#level-title').text('Gave Over!, Press a Key or Click Background to Restart!');
   playErrorSound();
   firstKeypress = true;
   level = 1;
