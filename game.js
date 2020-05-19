@@ -16,7 +16,9 @@ function gameOver() {
   });
   gamePattern = [];
   userClickedPattern = [];
-  $('#level-title').text('Gave Over!, Press a Key or Click Background to Restart!');
+  $('#play').removeClass('hide');
+  $('#level-title').text('Oops! Gave Over!');
+  $('#play').text('RESTART');
   playErrorSound();
   firstKeypress = true;
   level = 1;
@@ -65,7 +67,7 @@ var clickFunction = function(event) {
 $('[type="button"').unbind();
 $('.how-to-play').addClass('hide');
 
-$('#how-to').click((event) => {
+const showHint = (event) => {
   event.stopPropagation();
   $('.how-to-play').click((event) => {
     event.stopPropagation();
@@ -74,14 +76,20 @@ $('#how-to').click((event) => {
   $('.how-to-play').removeClass('hide').addClass('purple');
   $('body').addClass('purple');
   $('#how-to').addClass('hide');
-});
+};
 
-$('.tips-btn').click(() => {
+$('#how-to').click(showHint);
+
+const closeHint = () => {
   $('.how-to-play').addClass('hide');
   $('body').removeClass('purple');
   $('.app').removeClass('hide');
   $('#how-to').removeClass('hide');
-});
+};
+$('.close').click(closeHint);
+
+
+$('.tips-btn').click(closeHint);
 
 function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
@@ -115,27 +123,22 @@ function animatePress( currentColour ) {
 $('[type="button"').click(function(event){
   event.stopPropagation();
 });
-$('body').keypress(function() {
-  $('[type="button"').click(clickFunction);
-  if ( firstKeypress ) {
-    // $('[type="button"').click(clickFunction);
-    firstKeypress = false;
-    $('#level-title').text('Level 0');
-    nextSequence();
-    $('#how-to').addClass('hide');
-  }
-});
 
-$('body').click(function() {
+const startPlay = function() {
   $('[type="button"').click(clickFunction);
   if ( firstKeypress ) {
     // $('[type="button"').click(clickFunction);
     firstKeypress = false;
     $('#level-title').text('Level 0');
+    $('#play').addClass('hide');
     nextSequence();
-    $('#how-to').addClass('hide');
+    // $('#how-to').addClass('hide');
   }
-});
+}
+
+$('body').keypress(startPlay);
+
+$('#play').click(startPlay);
 
 $('footer').click((event) => {
   event.stopPropagation();

@@ -11,7 +11,9 @@
 
 <body>
   <div class="app">
-    <h1 id="level-title">Press A Key or Click Background to Start</h1>
+    <h1 id="level-title-main">MEMORY GAME</h1>
+    <h1 id="level-title"></h1>
+    <button id="play">START</button>
     <div class="container">
       <div class="row">
   
@@ -23,7 +25,7 @@
   
         </div>
       </div>
-  
+      
       <div class="row">
   
         <div type="button" id="yellow" class="btn yellow">
@@ -37,10 +39,13 @@
   
     </div>
     <button id="how-to">How To Play</button>
+    
   </div>
 
   <div class="how-to-play">
-    <p>This game checks if you can remeber the clicking pattern you followed 
+    <span class="close">&times;</span>
+    <h4 class="how-to-heading">MEMORY GAME - How to play</h4>
+    <p>This game checks if you can remember the clicking pattern you followed 
       previously.
     </p>
     <p>When the game opens, you start the game by pressing a key on the keyboard 
@@ -66,6 +71,12 @@
       This differenciates it from the blinking of one box at the start of every level.
     </p>
     <p>That is basically what you do in the game. The sounds will also guide you.</p>
+    <P>SUMMARY</P>
+    <p>- The level you are specifies how many times you to click. If your level is 4, 
+      you are clicking 4 times to make it to the next level.
+    </p>
+    <p>- The last box that blinked is the last box you are going to click.</p>
+    <p>Good luck!</p>
     <div class="tips-btn">Close</div>
   </div>
   <footer>&copy; 2020 KC Soft Solutions</footer>

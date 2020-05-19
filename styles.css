@@ -6,12 +6,13 @@ body {
 .app {
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
-#level-title {
+#level-title, #level-title-main {
   font-family: 'Press Start 2P', cursive;
   font-size: 2rem;
-  margin:  2%;
+  margin:  2% 2% 0;
   color: #FEF2BF;
 }
 
@@ -61,16 +62,26 @@ body {
   display: none;
 }
 
-#how-to {
-  position: fixed;
+#how-to, #play {
+  position: relative;
   top: 20%;
-  left: 0;
-  /* width: 100px; */
+  cursor: pointer;
+  margin: 0;
   height: 50px;
   font-size: 1.5rem;
-  background-color: #46091b;
-  color: #fff;
+  background-color: #011f3f;
+  color: #FEF2BF;
   font-weight: 1000;
+  border-radius: 15px;
+}
+
+#how-to {
+  left: 0;
+  margin-bottom: 30px;
+}
+
+#paly {
+  right: 0;
 }
 
 .hide {
@@ -102,6 +113,15 @@ body {
   font-size: 150%;
 }
 
+.close {
+  color: white;
+  background-color: #46091b;
+  float: right;
+  font-size: 2rem;
+  cursor: pointer;
+  padding-bottom: 20px;
+}
+
 .tips-btn:hover {
   background-color: #000;
   color: #fff;
@@ -110,6 +130,10 @@ body {
 .tips-btn:active {
   background-color: #fff;
   color: #000;
+}
+
+.how-to-heading {
+  text-align: center;
 }
 
 .how-to-play {
