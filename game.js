@@ -136,3 +136,7 @@ $('body').click(function() {
     $('#how-to').addClass('hide');
   }
 });
+
+$('footer').click((event) => {
+  event.stopPropagation();
+})
