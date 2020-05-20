@@ -1,28 +1,47 @@
-var buttonColours = ["red", "blue", "green", "yellow"];
+const buttonColours = ["red", "blue", "green", "yellow"];
 
-var gamePattern = [];
-var userClickedPattern = [];
+let gamePattern = [];
+let userClickedPattern = [];
 
-var firstKeypress = true;
+let firstKeypress = true;
 
-var level = 1;
+let level = 1;
+
+let timeOut;
+let interval;
+
+
+const blink = (selector, minute) => {
+  
+  minute = minute * 1000;
+
+  interval = setInterval(() => {
+    $(selector).css('visibility', 'hidden');
+    timeOut = setTimeout(() => {
+      $(selector).css('visibility', 'visible');
+    }, minute);
+  }, (minute * 2));
+
+};
 
 
 function gameOver() {
-  // $('#top').trigger("click");
-  $('[type="button"').unbind();
-  $('[type="button"').click(function(event) {
+  $('#level-title').addClass('visible');
+  $('#level-title').css('color','rgb(231, 26, 26)');
+  $('.btn').unbind().removeClass('pointer');
+  $('.btn').click(function(event) {
     event.stopPropagation();
   });
   gamePattern = [];
   userClickedPattern = [];
   $('#play').removeClass('hide');
   $('#level-title').text('Oops! Gave Over!');
+  blink('#level-title', 1);
   $('#play').text('RESTART');
   playErrorSound();
   firstKeypress = true;
   level = 1;
-  // $('[type="button"').unbind();
+  // $('.btn').unbind().removeClass('pointer');
   $('body').addClass('red');
   setTimeout(function() {
     $('body').removeClass('red');
@@ -30,24 +49,24 @@ function gameOver() {
   $('#how-to').removeClass('hide');
 }
 
-var clickFunction = function(event) {
+const clickFunction = function(event) {
   event.stopPropagation();
-  var userChosenColour = this.id;
+  let userChosenColour = this.id;
   userClickedPattern.push(userChosenColour);
   playSound(userChosenColour);
   animatePress(userChosenColour);
   if ( !level ) {
     return gameOver();
   }
-  var gamePatternNumber = gamePattern.length;
-  var clickPatternNumber = userClickedPattern.length;
+  let gamePatternNumber = gamePattern.length;
+  let clickPatternNumber = userClickedPattern.length;
   if ( gamePatternNumber === clickPatternNumber && gamePattern.join('') === userClickedPattern.join('') ) {
-    $('[type="button"').unbind();
-    $('[type="button"').click(function(event){
+    $('.btn').unbind().removeClass('pointer');
+    $('.btn').click(function(event){
       event.stopPropagation();
     });
     setTimeout(function() {
-      $('[type="button"').click(clickFunction);
+      $('.btn').click(clickFunction).addClass('pointer')
       nextSequence();
       userClickedPattern = [];
     }, 1000);
@@ -56,15 +75,15 @@ var clickFunction = function(event) {
     gameOver();
   }
   else if ( gamePatternNumber > clickPatternNumber ) {
-    var currentClickPattern = gamePattern.slice(0, clickPatternNumber);
+    let currentClickPattern = gamePattern.slice(0, clickPatternNumber);
     if ( currentClickPattern.join('') !== userClickedPattern.join('') ) {
       gameOver();
     }
   }
 };
 
-// $('[type="button"').click(clickFunction);
-$('[type="button"').unbind();
+// $('.btn').click(clickFunction).addClass('pointer')
+$('.btn').unbind().removeClass('pointer');
 $('.how-to-play').addClass('hide');
 
 const showHint = (event) => {
@@ -92,9 +111,9 @@ $('.close').click(closeHint);
 $('.tips-btn').click(closeHint);
 
 function nextSequence() {
-  var randomNumber = Math.floor(Math.random() * 4);
-  var randomChosenColour = buttonColours[randomNumber];
-  $('#level-title').text('Level ' + level);
+  let randomNumber = Math.floor(Math.random() * 4);
+  let randomChosenColour = buttonColours[randomNumber];
+  $('#level-title').text('LEVEL ' + level);
   gamePattern.push(randomChosenColour);
   setTimeout(() => {
     $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
@@ -105,12 +124,12 @@ function nextSequence() {
 }
 
 function playSound( name ) {
-  var playRandomSound = new Audio("sounds/" + name + ".mp3");
+  let playRandomSound = new Audio("sounds/" + name + ".mp3");
   playRandomSound.play();
 }
 
 function playErrorSound() {
-  var errorSound = new Audio('sounds/wrong.mp3');
+  let errorSound = new Audio('sounds/wrong.mp3');
   errorSound.play();
 }
 
@@ -120,16 +139,18 @@ function animatePress( currentColour ) {
     $( '.' + currentColour ).removeClass('pressed');
   }, 100);
 }
-$('[type="button"').click(function(event){
+$('.btn').click(function(event){
   event.stopPropagation();
 });
 
 const startPlay = function() {
-  $('[type="button"').click(clickFunction);
+  $('#level-title').css('color','#FEF2BF');
+  clearInterval(interval);
+  $('.btn').click(clickFunction).addClass('pointer')
   if ( firstKeypress ) {
-    // $('[type="button"').click(clickFunction);
+    // $('.btn').click(clickFunction).addClass('pointer')
     firstKeypress = false;
-    $('#level-title').text('Level 0');
+    // $('#level-title').text('Level 0');
     $('#play').addClass('hide');
     nextSequence();
     // $('#how-to').addClass('hide');
