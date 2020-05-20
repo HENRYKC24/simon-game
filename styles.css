@@ -124,12 +124,19 @@ body {
 }
 
 .close {
+  text-align: center;
   color: white;
   background-color: #46091b;
+  /* display: inline-block; */
+  width: 30px;
+  height: 30px;
   float: right;
-  font-size: 4rem;
+  font-size: 3rem;
+  line-height: 2rem;
   cursor: pointer;
-  padding-bottom: 20px;
+  padding: 4px 6px 7px 6px;
+  border: 2px solid white;
+  border-radius: 100%;
 }
 
 .pointer {
