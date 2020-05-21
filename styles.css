@@ -33,12 +33,14 @@ body {
 }
 
 .btn {
+  position: relative;
   margin: 1vw;
   display: inline-block;
   height: 200px;
   width: 200px;
   border: 10px solid black;
   border-radius: 20%;
+  /* rotate: 0deg; */
 }
 
 .game-over {
@@ -178,6 +180,32 @@ body {
     height: 200px;
     width: 200px;
   }
+}
+
+@keyframes shake {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(30deg);}
+}
+
+@keyframes shake2 {
+  from {transform: rotate(30deg);}
+  to {transform: rotate(0deg);}
+}
+
+.rotateFwd {
+  animation-name: shake;
+  animation-duration: 0.05s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 3;
+}
+
+.rotateBwd {
+  animation-name: shake2;
+  animation-duration: 0.05s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 3;
 }
 
 footer {

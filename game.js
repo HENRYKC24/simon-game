@@ -52,7 +52,13 @@ function gameOver() {
 const clickFunction = function(event) {
   event.stopPropagation();
   let userChosenColour = this.id;
+  $('.' + userChosenColour).removeClass('rotateBwd');
   userClickedPattern.push(userChosenColour);
+  document.querySelector('.' + userChosenColour).addEventListener('animationend', () => {
+    $('.' + userChosenColour).removeClass('rotateFwd');
+    $('.' + userChosenColour).addClass('rotateBwd');
+  });
+  $('.' + userChosenColour).addClass('rotateFwd');
   playSound(userChosenColour);
   animatePress(userChosenColour);
   if ( !level ) {
@@ -137,7 +143,7 @@ function animatePress( currentColour ) {
   $( '.' + currentColour ).addClass('pressed');
   setTimeout(function() {
     $( '.' + currentColour ).removeClass('pressed');
-  }, 100);
+  }, 350);
 }
 $('.btn').click(function(event){
   event.stopPropagation();
