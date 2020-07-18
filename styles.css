@@ -114,7 +114,7 @@ body {
 }
 
 .tips-btn {
-  width: 25%;
+  /* width: 25%; */
   margin: auto;
   text-align: center;
   background-color: #fff;
@@ -164,7 +164,6 @@ body {
   max-width: 800px;
   margin: auto;
   color: white;
-  text-align: justify;
   padding: 10px 20px 50px;
   font-size: 1.5rem;
 }
@@ -178,8 +177,8 @@ body {
 
 @media only screen and (max-width: 400px) {
   .btn {
-    height: 200px;
-    width: 200px;
+    height: 110px;
+    width: 110px;
   }
 }
 
