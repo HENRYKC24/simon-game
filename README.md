@@ -33,7 +33,7 @@ Feel free to check the [issues page](https://github.com/HENRYKC24/simon-game/iss
 Give a ⭐️ if you like this project!
 
 ## Acknowledgments
-- I thank in a special way, Udemy staff for helping learn all the skills that made the building of this app possible.
+- I thank in a special way, the Udemy staff for helping me learn all the skills that made the building of this app possible.
 
 ## 📝 License
 
