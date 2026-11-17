@@ -1,6 +1,6 @@
 # Memory Game
 
-Watch the pattern, then repeat it. Each round replays the whole pattern and adds one more pad, a little faster each time. How far can your memory go?
+Each round, one new pad lights up. Tap the whole pattern from the beginning, in order: only the newest pad is shown, so the rest comes from your memory. How far can you go?
 
 **[Play it](https://henrykc24.github.io/simon-game/)**
 
@@ -9,7 +9,8 @@ Watch the pattern, then repeat it. Each round replays the whole pattern and adds
 ## How to play
 
 - Press **Start**. One pad lights up: tap it.
-- Each round, repeat the whole pattern in order. One wrong pad ends the game.
+- Next round, another pad lights up (it can be the same one again). Tap the first pad, then the new one.
+- Each round adds one pad, and only the new one is shown. One wrong pad ends the game.
 - On a keyboard: Q, W, A and S for the four pads; Space or Enter to start.
 - Your best score is kept in your browser. Sound can be turned off.
 

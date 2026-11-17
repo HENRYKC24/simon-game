@@ -1,6 +1,7 @@
-// Memory Game: watch the pattern, then repeat it. Each round replays the
-// whole pattern and adds one pad; it speeds up as it grows. One wrong pad
-// ends the game. Touch, mouse, or the keys Q W A S (Space/Enter to start).
+// Memory Game: each round only the NEW pad lights up. Tap the whole
+// pattern from the start, in order: the earlier pads come from your memory.
+// One wrong pad ends the game. Touch, mouse, or the keys Q W A S
+// (Space/Enter to start).
 
 const PADS = ['green', 'red', 'yellow', 'blue'];
 const KEYS = {q: 'green', w: 'red', a: 'yellow', s: 'blue'};
@@ -63,9 +64,6 @@ const flash = async (name, ms) => {
   pads[name].classList.remove('lit');
 };
 
-// Faster as the pattern grows, never too fast to follow.
-const speed = () => Math.max(260, 620 - pattern.length * 28);
-
 // ---------- A round ----------
 const nextRound = async () => {
   pattern.push(PADS[Math.floor(Math.random() * 4)]);
@@ -74,13 +72,11 @@ const nextRound = async () => {
   enablePads(false);
   setStatus('Watch', `round ${pattern.length}`);
   await wait(600);
-  for (const name of pattern) {
-    if (!playing) return;
-    await flash(name, speed());
-    await wait(speed() * 0.45);
-  }
   if (!playing) return;
-  setStatus('Your turn', `${pattern.length} to go`);
+  // Only the new pad: the rest of the pattern is for you to remember.
+  await flash(pattern[pattern.length - 1], 450);
+  if (!playing) return;
+  setStatus('Your turn', `${pattern.length} tap${pattern.length === 1 ? '' : 's'}`);
   enablePads(true);
 };
 
@@ -94,7 +90,7 @@ const press = async name => {
   step += 1;
   const left = pattern.length - step;
   if (left > 0) {
-    setStatus('Your turn', `${left} to go`);
+    setStatus('Your turn', `${left} more`);
     return;
   }
   enablePads(false);

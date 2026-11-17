@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Memory Game · by Henry KC Eze</title>
-    <meta name="description" content="Watch the pattern, then repeat it. Each round adds one more. How far can your memory go? A game by Henry KC Eze." />
+    <meta name="description" content="Each round one new pad lights up. Remember the whole pattern and tap it in order. How far can your memory go? A game by Henry KC Eze." />
     <meta name="theme-color" content="#0b1120" />
     <meta property="og:title" content="Memory Game" />
-    <meta property="og:description" content="Watch the pattern, then repeat it. How far can your memory go?" />
+    <meta property="og:description" content="Remember the pattern: only the new pad lights up. How far can your memory go?" />
     <meta property="og:image" content="https://henrykc24.github.io/simon-game/app_screenshot.png" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='1' y='1' width='14' height='14' rx='4' fill='%2322c55e'/%3E%3Crect x='17' y='1' width='14' height='14' rx='4' fill='%23ef4444'/%3E%3Crect x='1' y='17' width='14' height='14' rx='4' fill='%23facc15'/%3E%3Crect x='17' y='17' width='14' height='14' rx='4' fill='%233b82f6'/%3E%3C/svg%3E" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,7 +21,7 @@
       <header class="top">
         <div>
           <h1>Memory Game</h1>
-          <p class="sub">Watch the pattern, then repeat it.</p>
+          <p class="sub">Remember the pattern. Only the new pad lights up.</p>
         </div>
         <button class="icon-btn" id="sound" type="button" aria-label="Sound on" aria-pressed="true">
           <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
@@ -49,8 +49,9 @@
         <summary>How to play</summary>
         <ol>
           <li>Press <strong>Start</strong>. One pad lights up: tap it.</li>
-          <li>Each round replays the whole pattern and adds one more pad. Repeat it in the same order.</li>
-          <li>One wrong pad ends the game. The pattern gets faster as you go.</li>
+          <li>Each round, only one new pad lights up. Tap the whole pattern from the beginning, in order, ending with the new one.</li>
+          <li>The earlier pads aren't shown again: you have to remember them. Your level is how many taps the pattern needs.</li>
+          <li>One wrong pad ends the game.</li>
           <li>On a keyboard, use Q, W, A and S for the four pads, and Space or Enter to start.</li>
         </ol>
       </details>
