@@ -1,40 +1,26 @@
 # Memory Game
-This is a game built with HTML, CSS, JavaScript, and jQuery. It tests how you can memorize the pattern of blinking of some randomly blinking boxes. It can help you improve your retentive memory.
-## Built With
 
-- HTML
-- CSS
-- JavaScript
-- jQuery
+Watch the pattern, then repeat it. Each round replays the whole pattern and adds one more pad, a little faster each time. How far can your memory go?
 
-## Live Demo
+**[Play it](https://henrykc24.github.io/simon-game/)**
 
-[Live Demo Link](https://henrykc24.github.io/simon-game/)
+![Memory Game](./app_screenshot.png)
 
-![screenshot](./app_screenshot.png)
+## How to play
+
+- Press **Start**. One pad lights up: tap it.
+- Each round, repeat the whole pattern in order. One wrong pad ends the game.
+- On a keyboard: Q, W, A and S for the four pads; Space or Enter to start.
+- Your best score is kept in your browser. Sound can be turned off.
+
+## Built with
+
+HTML, CSS and JavaScript, no libraries. Works on phones and desktops.
 
 ## Author
 
-👤 **Henry Kc**
+**Henry KC Eze** · [Website](https://henrykc24.github.io/my-portfolio/) · [GitHub](https://github.com/HENRYKC24) · [LinkedIn](https://linkedin.com/in/henry-kc)
 
-- GitHub: [@githubhandle](https://github.com/henrykc24)
-- Twitter: [@twitterhandle](https://twitter.com/henrykc24)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/henry-kc)
+## License
 
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-Feel free to check the [issues page](https://github.com/HENRYKC24/simon-game/issues/).
-
-## Show your support
-
-Give a ⭐️ if you like this project!
-
-## Acknowledgments
-- I thank in a special way, the Udemy staff for helping me learn all the skills that made the building of this app possible.
-
-## 📝 License
-
-This project is [MIT](./LICENSE) licensed.
+[MIT](./LICENSE)

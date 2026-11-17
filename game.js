@@ -1,172 +1,165 @@
-const buttonColours = ["red", "blue", "green", "yellow"];
+// Memory Game: watch the pattern, then repeat it. Each round replays the
+// whole pattern and adds one pad; it speeds up as it grows. One wrong pad
+// ends the game. Touch, mouse, or the keys Q W A S (Space/Enter to start).
 
-let gamePattern = [];
-let userClickedPattern = [];
+const PADS = ['green', 'red', 'yellow', 'blue'];
+const KEYS = {q: 'green', w: 'red', a: 'yellow', s: 'blue'};
+const $ = id => document.getElementById(id);
 
-let firstKeypress = true;
+const board = $('board');
+const pads = Object.fromEntries(
+  [...document.querySelectorAll('.pad')].map(el => [el.dataset.pad, el]),
+);
 
-let level = 1;
+let pattern = [];
+let step = 0;
+let listening = false;
+let playing = false;
+let best = Number(localStorage.getItem('memory-best')) || 0;
+let sound = localStorage.getItem('memory-sound') !== 'off';
 
-let timeOut;
-let interval;
-
-
-const blink = (selector, minute) => {
-  
-  minute = minute * 1000;
-
-  interval = setInterval(() => {
-    $(selector).css('visibility', 'hidden');
-    timeOut = setTimeout(() => {
-      $(selector).css('visibility', 'visible');
-    }, minute);
-  }, (minute * 2));
-
+// ---------- Sound ----------
+const sounds = Object.fromEntries(
+  [...PADS, 'wrong'].map(name => [name, new Audio(`./sounds/${name}.mp3`)]),
+);
+const play = name => {
+  if (!sound) return;
+  const a = sounds[name].cloneNode();
+  a.volume = 0.8;
+  a.play().catch(() => {});
 };
-
-
-function gameOver() {
-  $('#level-title').addClass('visible');
-  $('#level-title').css('color','rgb(231, 26, 26)');
-  $('.btn').unbind().removeClass('pointer');
-  $('.btn').click(function(event) {
-    event.stopPropagation();
-  });
-  gamePattern = [];
-  userClickedPattern = [];
-  $('#play').removeClass('hide');
-  $('#level-title').text('Oops! Gave Over!');
-  blink('#level-title', 1);
-  $('#play').text('RESTART');
-  playErrorSound();
-  firstKeypress = true;
-  level = 1;
-  // $('.btn').unbind().removeClass('pointer');
-  $('body').addClass('red');
-  setTimeout(function() {
-    $('body').removeClass('red');
-  },200);
-  $('#how-to').removeClass('hide');
-}
-
-const clickFunction = function(event) {
-  event.stopPropagation();
-  let userChosenColour = this.id;
-  $('.' + userChosenColour).removeClass('rotateBwd');
-  userClickedPattern.push(userChosenColour);
-  document.querySelector('.' + userChosenColour).addEventListener('animationend', () => {
-    $('.' + userChosenColour).removeClass('rotateFwd');
-    $('.' + userChosenColour).addClass('rotateBwd');
-  });
-  $('.' + userChosenColour).addClass('rotateFwd');
-  playSound(userChosenColour);
-  animatePress(userChosenColour);
-  if ( !level ) {
-    return gameOver();
-  }
-  let gamePatternNumber = gamePattern.length;
-  let clickPatternNumber = userClickedPattern.length;
-  if ( gamePatternNumber === clickPatternNumber && gamePattern.join('') === userClickedPattern.join('') ) {
-    $('.btn').unbind().removeClass('pointer');
-    $('.btn').click(function(event){
-      event.stopPropagation();
-    });
-    setTimeout(function() {
-      $('.btn').click(clickFunction).addClass('pointer')
-      nextSequence();
-      userClickedPattern = [];
-    }, 1000);
-  }
-  else if ( gamePatternNumber === clickPatternNumber && gamePattern.join('') !== userClickedPattern.join('') ) {
-    gameOver();
-  }
-  else if ( gamePatternNumber > clickPatternNumber ) {
-    let currentClickPattern = gamePattern.slice(0, clickPatternNumber);
-    if ( currentClickPattern.join('') !== userClickedPattern.join('') ) {
-      gameOver();
-    }
-  }
+const showSound = () => {
+  const btn = $('sound');
+  btn.setAttribute('aria-pressed', String(sound));
+  btn.setAttribute('aria-label', sound ? 'Sound on' : 'Sound off');
 };
-
-// $('.btn').click(clickFunction).addClass('pointer')
-$('.btn').unbind().removeClass('pointer');
-$('.how-to-play').addClass('hide');
-
-const showHint = (event) => {
-  event.stopPropagation();
-  $('.how-to-play').click((event) => {
-    event.stopPropagation();
-  });
-  $('.app').addClass('hide');
-  $('.how-to-play').removeClass('hide').addClass('purple');
-  $('body').addClass('purple');
-  $('#how-to').addClass('hide');
-};
-
-$('#how-to').click(showHint);
-
-const closeHint = () => {
-  $('.how-to-play').addClass('hide');
-  $('body').removeClass('purple');
-  $('.app').removeClass('hide');
-  $('#how-to').removeClass('hide');
-};
-$('.close').click(closeHint);
-
-
-$('.tips-btn').click(closeHint);
-
-function nextSequence() {
-  let randomNumber = Math.floor(Math.random() * 4);
-  let randomChosenColour = buttonColours[randomNumber];
-  $('#level-title').text('LEVEL ' + level);
-  gamePattern.push(randomChosenColour);
-  setTimeout(() => {
-    $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-    level++;
-    playSound(randomChosenColour);
-  }, 300);
-
-}
-
-function playSound( name ) {
-  let playRandomSound = new Audio("sounds/" + name + ".mp3");
-  playRandomSound.play();
-}
-
-function playErrorSound() {
-  let errorSound = new Audio('sounds/wrong.mp3');
-  errorSound.play();
-}
-
-function animatePress( currentColour ) {
-  $( '.' + currentColour ).addClass('pressed');
-  setTimeout(function() {
-    $( '.' + currentColour ).removeClass('pressed');
-  }, 350);
-}
-$('.btn').click(function(event){
-  event.stopPropagation();
+$('sound').addEventListener('click', () => {
+  sound = !sound;
+  localStorage.setItem('memory-sound', sound ? 'on' : 'off');
+  showSound();
 });
 
-const startPlay = function() {
-  $('#level-title').css('color','#FEF2BF');
-  clearInterval(interval);
-  $('.btn').click(clickFunction).addClass('pointer')
-  if ( firstKeypress ) {
-    // $('.btn').click(clickFunction).addClass('pointer')
-    firstKeypress = false;
-    // $('#level-title').text('Level 0');
-    $('#play').addClass('hide');
-    nextSequence();
-    // $('#how-to').addClass('hide');
+// ---------- Display ----------
+const setStatus = (text, small = '') => {
+  $('status').innerHTML = small ? `${text}<small>${small}</small>` : text;
+};
+const showScores = () => {
+  $('level').textContent = String(pattern.length);
+  $('best').textContent = String(best);
+};
+const enablePads = on => {
+  listening = on;
+  Object.values(pads).forEach(p => {
+    p.disabled = !on;
+  });
+};
+
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+const flash = async (name, ms) => {
+  pads[name].classList.add('lit');
+  play(name);
+  await wait(ms);
+  pads[name].classList.remove('lit');
+};
+
+// Faster as the pattern grows, never too fast to follow.
+const speed = () => Math.max(260, 620 - pattern.length * 28);
+
+// ---------- A round ----------
+const nextRound = async () => {
+  pattern.push(PADS[Math.floor(Math.random() * 4)]);
+  step = 0;
+  showScores();
+  enablePads(false);
+  setStatus('Watch', `round ${pattern.length}`);
+  await wait(600);
+  for (const name of pattern) {
+    if (!playing) return;
+    await flash(name, speed());
+    await wait(speed() * 0.45);
   }
-}
+  if (!playing) return;
+  setStatus('Your turn', `${pattern.length} to go`);
+  enablePads(true);
+};
 
-$('body').keypress(startPlay);
+const press = async name => {
+  if (!listening) return;
+  if (name !== pattern[step]) {
+    gameOver();
+    return;
+  }
+  flash(name, 180);
+  step += 1;
+  const left = pattern.length - step;
+  if (left > 0) {
+    setStatus('Your turn', `${left} to go`);
+    return;
+  }
+  enablePads(false);
+  setStatus('Nice!', 'next round');
+  await wait(700);
+  if (playing) nextRound();
+};
 
-$('#play').click(startPlay);
+const start = () => {
+  if (playing) return;
+  playing = true;
+  pattern = [];
+  $('start').classList.add('hidden');
+  $('over').classList.add('hidden');
+  nextRound();
+};
 
-$('footer').click((event) => {
-  event.stopPropagation();
-})
+const gameOver = () => {
+  playing = false;
+  enablePads(false);
+  play('wrong');
+  if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+  board.classList.add('wrong');
+  setTimeout(() => board.classList.remove('wrong'), 400);
+  const rounds = pattern.length - 1;
+  const isBest = rounds > best;
+  if (isBest) {
+    best = rounds;
+    localStorage.setItem('memory-best', String(best));
+  }
+  showScores();
+  setStatus('');
+  $('over-text').textContent =
+    rounds > 0
+      ? `You remembered ${rounds} round${rounds === 1 ? '' : 's'} in a row.`
+      : 'That one was the wrong pad. Have another go.';
+  $('r-level').textContent = String(rounds);
+  $('r-best').textContent = String(best);
+  $('new-best').classList.toggle('hidden', !isBest || rounds === 0);
+  setTimeout(() => {
+    $('over').classList.remove('hidden');
+    $('start').classList.remove('hidden');
+    $('again').focus();
+  }, 600);
+};
+
+// ---------- Input ----------
+Object.entries(pads).forEach(([name, el]) => {
+  el.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    press(name);
+  });
+});
+$('start').addEventListener('click', start);
+$('again').addEventListener('click', start);
+document.addEventListener('keydown', e => {
+  const key = e.key.toLowerCase();
+  if (KEYS[key]) {
+    press(KEYS[key]);
+  } else if ((e.key === ' ' || e.key === 'Enter') && !playing && e.target.tagName !== 'BUTTON') {
+    e.preventDefault();
+    start();
+  }
+});
+
+showSound();
+showScores();
+setStatus('');

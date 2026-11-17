@@ -1,92 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-  <meta name="image" property="og:image" content="./app_screenshot.png" />
-  <title>Memory Game</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> -->
-  <link rel="icon" href="#">
-</head>
-
-<body>
-  <div class="app">
-    <h1 id="level-title-main">MEMORY GAME</h1>
-    <h1 id="level-title">Press a Key or Click "START" to play</h1>
-    <button id="play">START</button>
-    <div class="container">
-      <div class="row">
-  
-        <div id="green" class="btn green">
-  
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Memory Game · by Henry KC Eze</title>
+    <meta name="description" content="Watch the pattern, then repeat it. Each round adds one more. How far can your memory go? A game by Henry KC Eze." />
+    <meta name="theme-color" content="#0b1120" />
+    <meta property="og:title" content="Memory Game" />
+    <meta property="og:description" content="Watch the pattern, then repeat it. How far can your memory go?" />
+    <meta property="og:image" content="https://henrykc24.github.io/simon-game/app_screenshot.png" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='1' y='1' width='14' height='14' rx='4' fill='%2322c55e'/%3E%3Crect x='17' y='1' width='14' height='14' rx='4' fill='%23ef4444'/%3E%3Crect x='1' y='17' width='14' height='14' rx='4' fill='%23facc15'/%3E%3Crect x='17' y='17' width='14' height='14' rx='4' fill='%233b82f6'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./game.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div>
+          <h1>Memory Game</h1>
+          <p class="sub">Watch the pattern, then repeat it.</p>
         </div>
-  
-        <div id="red" class="btn red">
-  
+        <button class="icon-btn" id="sound" type="button" aria-label="Sound on" aria-pressed="true">
+          <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+          <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M22 9l-6 6M16 9l6 6"/></svg>
+        </button>
+      </header>
+
+      <div class="scores">
+        <div class="score"><span>Level</span><strong id="level">0</strong></div>
+        <div class="score"><span>Best</span><strong id="best">0</strong></div>
+      </div>
+
+      <div class="board" id="board" aria-label="Game pads">
+        <button class="pad green" data-pad="green" type="button" aria-label="Green" disabled><kbd>Q</kbd></button>
+        <button class="pad red" data-pad="red" type="button" aria-label="Red" disabled><kbd>W</kbd></button>
+        <button class="pad yellow" data-pad="yellow" type="button" aria-label="Yellow" disabled><kbd>A</kbd></button>
+        <button class="pad blue" data-pad="blue" type="button" aria-label="Blue" disabled><kbd>S</kbd></button>
+        <div class="center">
+          <button class="start" id="start" type="button">Start</button>
+          <div class="status" id="status" aria-live="polite"></div>
         </div>
       </div>
-      
-      <div class="row">
-  
-        <div id="yellow" class="btn yellow">
-  
+
+      <details class="how">
+        <summary>How to play</summary>
+        <ol>
+          <li>Press <strong>Start</strong>. One pad lights up: tap it.</li>
+          <li>Each round replays the whole pattern and adds one more pad. Repeat it in the same order.</li>
+          <li>One wrong pad ends the game. The pattern gets faster as you go.</li>
+          <li>On a keyboard, use Q, W, A and S for the four pads, and Space or Enter to start.</li>
+        </ol>
+      </details>
+
+      <footer class="credit">
+        A game by <a href="https://henrykc24.github.io/my-portfolio/">Henry KC Eze</a>
+      </footer>
+    </main>
+
+    <div class="overlay hidden" id="over" role="dialog" aria-modal="true" aria-labelledby="over-title">
+      <div class="card">
+        <h2 id="over-title">Game over</h2>
+        <p id="over-text"></p>
+        <div class="result">
+          <div><strong id="r-level">0</strong><span>rounds</span></div>
+          <div><strong id="r-best">0</strong><span>best</span></div>
         </div>
-        <div id="blue" class="btn blue">
-  
-        </div>
-  
+        <p class="new-best hidden" id="new-best">New best!</p>
+        <button class="start wide" id="again" type="button">Play again</button>
       </div>
-  
     </div>
-    <button id="how-to">How To Play</button>
-    
-  </div>
-
-  <div class="how-to-play">
-    <span class="close">&times;</span>
-    <h4 class="how-to-heading">MEMORY GAME - How to play</h4>
-    <p>This game checks if you can remember the clicking pattern you followed 
-      previously.
-    </p>
-    <p>When the game opens, you start the game by pressing a key on the keyboard 
-      if you are using a computer or clicking/touching the 'START' button.
-    </p>
-    <p>When the game starts, any one of the four boxes (green, red, yellow 
-      or blue) will blink. This gives you the particular box you are 
-      to click to progress to level 2.
-    </p>
-    <p>When you correctly click this box that blinked, you will see level 2 on top 
-      and yet another box will randomly blink. There is a shaking animation of the 
-      box you clicked.
-    </p>
-    <p>Your level tells you how many times you are to click. In level 2, 
-      you are expected to click the first box that blinked followed by 
-      the new one that just blinked. If you get this correctly you will progress 
-      to level 3.
-    </p>
-    <p>In level 3, a new box randomly blinks. Then you click the first box 
-      that blinked, followed by the second and the third in that sequence. You have 
-      to memorize the pattern.
-    </p>
-    <p>Whenever you click or touch any box, the box will flash a white light as it shakes. 
-      This differenciates it from the blinking of one box at the start of every level.
-    </p>
-    <p>That is basically what you do in the game. The sounds will also guide you.</p>
-    <P>SUMMARY</P>
-    <p>- Your current level tells you how many times you are to click. If your level is 4, 
-      you are clicking 4 times to make it to the next level. If you are in level 7, your clicking pattern
-       should also be 7 clicks long and so on.
-    </p>
-    <p>- The last box that blinked is the last box you are going to click 
-      in your pattern or sequence.</p>
-    <p>Good luck!</p>
-    <div class="tips-btn">Close</div>
-  </div>
-  <footer>&copy; 2020 KC Soft Solutions</footer>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="game.js"></script>
-</body>
-
+  </body>
 </html>
